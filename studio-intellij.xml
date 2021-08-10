@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CubaPluginProjectSettings">
+    <option name="ignoredReleases">
+      <map>
+        <entry key="BUGFIX" value="7.2.11" />
+      </map>
+    </option>
+    <option name="stateVersion" value="1" />
+  </component>
+</project>
