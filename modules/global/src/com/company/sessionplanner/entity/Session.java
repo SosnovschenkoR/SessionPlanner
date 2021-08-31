@@ -1,31 +1,55 @@
 package com.company.sessionplanner.entity;
 
+import com.haulmont.chile.core.annotations.MetaProperty;
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
-import com.haulmont.cuba.core.entity.annotation.Lookup;
-import com.haulmont.cuba.core.entity.annotation.LookupType;
 
 import javax.persistence.*;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
+@NamePattern("%s|topic")
 @Table(name = "SESSIONPLANNER_SESSION")
 @Entity(name = "sessionplanner_Session")
 public class Session extends StandardEntity {
     private static final long serialVersionUID = 7497709835929871175L;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "END_DATE")
-    protected Date endDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "START_DATE", nullable = false)
-    protected Date startDate;
+
+    @NotNull
     @Column(name = "TOPIC", nullable = false)
     protected String topic;
-    @Column(name = "DESCRIPTION", length = 2000)
-    protected String description;
-    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
+
+    @Column(name = "START_DATE", nullable = false)
+    protected @NotNull LocalDateTime startDate;
+
+    @NotNull
+    @Column(name = "DURATION", nullable = false)
+    private @Positive Integer duration;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "SPEAKER_ID")
     protected Speaker speaker;
+
+    @Lob
+    @Column(name = "DESCRIPTION")
+    protected String description;
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
 
     public String getDescription() {
         return description;
@@ -43,22 +67,6 @@ public class Session extends StandardEntity {
         this.speaker = speaker;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
     public String getTopic() {
         return topic;
     }
@@ -67,14 +75,10 @@ public class Session extends StandardEntity {
         this.topic = topic;
     }
 
-    @PrePersist
-    @PreUpdate
-    public void updateEndDate() {
-        endDate = calculateEndDate(startDate);
-    }
-
-    public static Date calculateEndDate(Date startDate) {
-        return Date.from(startDate.toInstant().plus(1, ChronoUnit.HOURS));
+    @Transient
+    @MetaProperty(related = {"startDate", "duration"})
+    public LocalDateTime getEndDate() {
+        return (startDate != null && duration != null) ? startDate.plusHours(duration) : null;
     }
 
 }

@@ -27,11 +27,11 @@ create table SESSIONPLANNER_SESSION (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    END_DATE timestamp,
-    START_DATE timestamp not null,
     TOPIC varchar(255) not null,
-    DESCRIPTION varchar(2000),
+    START_DATE timestamp not null,
+    DURATION integer not null,
     SPEAKER_ID varchar(36) not null,
+    DESCRIPTION longvarchar,
     --
     primary key (ID)
 )^
