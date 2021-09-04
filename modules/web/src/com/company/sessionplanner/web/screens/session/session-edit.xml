@@ -24,6 +24,7 @@
             <column width="250px">
                 <dateField id="startDateField" property="startDate"/>
                 <textField id="topicField" property="topic"/>
+                <textField id="duration" property="duration"/>
                 <textArea id="descriptionField" property="description"/>
                 <lookupPickerField id="speakerField" optionsContainer="speakersDc" property="speaker"/>
             </column>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://sessionList.caption"
+        messagesPack="com.company.sessionplanner.web.screens.session">
+    <data>
+        <collection id="sessionsListDc"
+                    class="com.company.sessionplanner.entity.Session"
+                    view="session-list-view">
+            <!--view extends="_local">
+                <property name="speaker" view="_minimal"/>
+            </view-->
+        </collection>
+    </data>
+    <layout>
+        <table id="sessionsListTable" height="100%" width="100%" dataContainer="sessionsListDc">
+            <columns>
+                <column id="topic"/>
+                <column id="startDate"/>
+                <column id="endDate"/>
+                <column id="speaker"/>
+                <column id="description"/>
+            </columns>
+            <buttonsPanel>
+                <button id="refreshBtn" caption="Refresh" icon="REFRESH_ACTION"/>
+            </buttonsPanel>
+
+            <rows/>
+        </table>
+    </layout>
+</window>

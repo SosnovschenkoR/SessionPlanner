@@ -3,5 +3,6 @@
     <menu id="application-sessionplanner" insertBefore="administration">
         <item screen="sessionplanner_Speaker.browse"/>
         <item screen="sessionplanner_Session.browse"/>
+        <item screen="sessionplanner_SessionList" caption="mainMsg://menu_config.sessionplanner_SessionList"/>
     </menu>
 </menu-config>

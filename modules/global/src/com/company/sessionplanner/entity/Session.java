@@ -5,8 +5,7 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @NamePattern("%s|topic")
@@ -24,6 +23,8 @@ public class Session extends StandardEntity {
 
     @NotNull
     @Column(name = "DURATION", nullable = false)
+    @DecimalMin("1") // minimum value
+    @DecimalMax("5") // maximum value
     private @Positive Integer duration;
 
     @NotNull
